@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "778205346928",
+    "project_id": "finpay-app-1",
+    "storage_bucket": "finpay-app-1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778205346928:android:f8b339c194ca2d8173c8b5",
+        "android_client_info": {
+          "package_name": "com.example.fintech_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsEfaIkPi3CeCrMnVYYjNDCeNYBMvv0bc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
