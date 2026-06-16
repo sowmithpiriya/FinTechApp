@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
+import 'screens/splash/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import 'screens/splash/splash_screen.dart';
-
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
-
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -23,7 +19,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
 
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+          primarySwatch: Colors.blue,
       ),
 
       home: const SplashScreen(),

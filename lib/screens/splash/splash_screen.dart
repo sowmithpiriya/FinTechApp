@@ -1,5 +1,5 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
+
 import '../login/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,15 +15,21 @@ class _SplashScreenState
 
   @override
   void initState() {
+
     super.initState();
 
-    Timer(
+    Future.delayed(
+
       const Duration(seconds: 3),
+
           () {
 
         Navigator.pushReplacement(
+
           context,
+
           MaterialPageRoute(
+
             builder: (_) =>
             const LoginScreen(),
           ),
@@ -38,9 +44,9 @@ class _SplashScreenState
     return Scaffold(
 
       backgroundColor:
-      const Color(0xff5F259F),
+      const Color(0xff1565C0),
 
-      body: const Center(
+      body: Center(
 
         child: Column(
 
@@ -49,21 +55,58 @@ class _SplashScreenState
 
           children: [
 
-            Icon(
-              Icons.account_balance_wallet,
-              size: 100,
-              color: Colors.white,
+            Container(
+
+              height: 110,
+              width: 110,
+
+              decoration: BoxDecoration(
+
+                color: Colors.white,
+
+                borderRadius:
+                BorderRadius.circular(30),
+              ),
+
+              child: const Icon(
+
+                Icons.account_balance_wallet,
+
+                color:
+                Color(0xff1565C0),
+
+                size: 60,
+              ),
             ),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 30),
 
-            Text(
-              "FinPay",
+            const Text(
+
+              "Scredope",
+
               style: TextStyle(
+
                 color: Colors.white,
-                fontSize: 32,
+
+                fontSize: 40,
+
                 fontWeight:
                 FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            const Text(
+
+              "Pay • Send • Receive",
+
+              style: TextStyle(
+
+                color: Colors.white70,
+
+                fontSize: 18,
               ),
             ),
           ],

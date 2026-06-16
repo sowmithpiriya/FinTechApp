@@ -8,59 +8,111 @@ class BillsScreen extends StatelessWidget {
 
     return Scaffold(
 
+      backgroundColor:
+      Colors.grey.shade100,
+
       appBar: AppBar(
 
         backgroundColor:
-        const Color(0xff5F259F),
+        const Color(0xff1565C0),
 
         title: const Text(
-          "Pay Bills",
+
+          "Bills",
+
           style: TextStyle(
             color: Colors.white,
           ),
         ),
       ),
 
-      body: ListView(
+      body: Padding(
 
-        children: const [
+        padding:
+        const EdgeInsets.all(20),
 
-          ListTile(
-            leading:
-            Icon(Icons.lightbulb),
-            title:
-            Text("Electricity Bill"),
-            subtitle:
-            Text("₹1,200 Pending"),
+        child: Column(
+
+          children: [
+
+            billTile(
+              Icons.lightbulb,
+              "Electricity Bill",
+              "₹1,250",
+            ),
+
+            billTile(
+              Icons.wifi,
+              "Broadband",
+              "₹899",
+            ),
+
+            billTile(
+              Icons.local_gas_station,
+              "Gas Bill",
+              "₹650",
+            ),
+
+            billTile(
+              Icons.water_drop,
+              "Water Bill",
+              "₹400",
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget billTile(
+      IconData icon,
+      String title,
+      String amount,
+      ) {
+
+    return Card(
+
+      margin:
+      const EdgeInsets.only(
+          bottom: 15),
+
+      shape: RoundedRectangleBorder(
+
+        borderRadius:
+        BorderRadius.circular(18),
+      ),
+
+      child: ListTile(
+
+        leading: CircleAvatar(
+
+          backgroundColor:
+          const Color(0xffE3F2FD),
+
+          child: Icon(
+
+            icon,
+
+            color:
+            const Color(0xff1565C0),
           ),
+        ),
 
-          ListTile(
-            leading:
-            Icon(Icons.local_gas_station),
-            title:
-            Text("Gas Bill"),
-            subtitle:
-            Text("₹850 Pending"),
-          ),
+        title: Text(title),
 
-          ListTile(
-            leading:
-            Icon(Icons.water_drop),
-            title:
-            Text("Water Bill"),
-            subtitle:
-            Text("₹400 Pending"),
-          ),
+        subtitle:
+        const Text("Due Soon"),
 
-          ListTile(
-            leading:
-            Icon(Icons.wifi),
-            title:
-            Text("WiFi Bill"),
-            subtitle:
-            Text("₹999 Pending"),
+        trailing: Text(
+
+          amount,
+
+          style: const TextStyle(
+
+            fontWeight:
+            FontWeight.bold,
           ),
-        ],
+        ),
       ),
     );
   }

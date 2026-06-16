@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -9,304 +8,407 @@ class ProfileScreen extends StatelessWidget {
 
     return Scaffold(
 
-      backgroundColor: Colors.grey.shade100,
+      backgroundColor:
+      Colors.grey.shade100,
 
       appBar: AppBar(
 
         backgroundColor:
-        const Color(0xff5F259F),
+        const Color(0xff1565C0),
+
+        elevation: 0,
 
         title: const Text(
+
           "Profile",
+
           style: TextStyle(
             color: Colors.white,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
 
       body: SingleChildScrollView(
 
-        padding: const EdgeInsets.all(20),
+        child: Padding(
 
-        child: Column(
+          padding:
+          const EdgeInsets.all(20),
 
-          children: [
+          child: Column(
 
-            // PROFILE CARD
-            Container(
+            children: [
 
-              width: double.infinity,
+              // PROFILE CARD
+              Container(
 
-              padding: const EdgeInsets.all(25),
+                width: double.infinity,
 
-              decoration: BoxDecoration(
+                padding:
+                const EdgeInsets.all(25),
 
-                gradient: const LinearGradient(
-                  colors: [
-                    Color(0xff5F259F),
-                    Color(0xff7E57C2),
+                decoration:
+                BoxDecoration(
+
+                  gradient:
+                  const LinearGradient(
+
+                    colors: [
+
+                      Color(0xff1565C0),
+
+                      Color(0xff42A5F5),
+                    ],
+                  ),
+
+                  borderRadius:
+                  BorderRadius.circular(25),
+
+                  boxShadow: [
+
+                    BoxShadow(
+
+                      color:
+                      Colors.blue.withValues(
+                        alpha: 0.3,
+                      ),
+
+                      blurRadius: 15,
+
+                      offset:
+                      const Offset(0, 8),
+                    ),
                   ],
                 ),
 
-                borderRadius:
-                BorderRadius.circular(25),
-              ),
+                child: Column(
 
-              child: Column(
+                  children: [
 
-                children: [
+                    const CircleAvatar(
 
-                  const CircleAvatar(
-                    radius: 45,
-                    backgroundColor: Colors.white,
+                      radius: 45,
 
-                    child: Icon(
-                      Icons.person,
-                      size: 50,
-                      color: Color(0xff5F259F),
-                    ),
-                  ),
+                      backgroundColor:
+                      Colors.white,
 
-                  const SizedBox(height: 15),
+                      child: Icon(
 
-                  const Text(
-                    "Sowmith",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 28,
-                      fontWeight:
-                      FontWeight.bold,
-                    ),
-                  ),
+                        Icons.person,
 
-                  const SizedBox(height: 5),
+                        size: 50,
 
-                  const Text(
-                    "sowmith@upi",
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 16,
-                    ),
-                  ),
-
-                  const SizedBox(height: 15),
-
-                  Container(
-
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 8,
-                    ),
-
-                    decoration: BoxDecoration(
-                      color: Colors.white24,
-                      borderRadius:
-                      BorderRadius.circular(20),
-                    ),
-
-                    child: const Text(
-                      "KYC Verified",
-                      style: TextStyle(
-                        color: Colors.white,
+                        color:
+                        Color(0xff1565C0),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
 
-            const SizedBox(height: 30),
+                    const SizedBox(height: 15),
 
-            // QR CARD
-            Container(
+                    const Text(
 
-              width: double.infinity,
+                      "Sowmith Piriya",
 
-              padding: const EdgeInsets.all(20),
+                      style: TextStyle(
 
-              decoration: BoxDecoration(
+                        color: Colors.white,
 
-                color: Colors.white,
+                        fontSize: 24,
 
-                borderRadius:
-                BorderRadius.circular(25),
-              ),
-
-              child: Column(
-
-                children: [
-
-                  const Text(
-                    "My QR Code",
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight:
-                      FontWeight.bold,
+                        fontWeight:
+                        FontWeight.bold,
+                      ),
                     ),
-                  ),
 
-                  const SizedBox(height: 20),
+                    const SizedBox(height: 5),
 
-                  QrImageView(
-                    data: "upi://pay?pa=sowmith@upi",
-                    size: 220,
-                  ),
+                    const Text(
 
-                  const SizedBox(height: 20),
+                      "+91 8688476315",
 
-                  const Text(
-                    "Scan to Pay Sowmith",
-                    style: TextStyle(
-                      color: Colors.grey,
+                      style: TextStyle(
+
+                        color:
+                        Colors.white70,
+
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
 
-            const SizedBox(height: 30),
+                    const SizedBox(height: 5),
 
-            // USER DETAILS
-            detailsTile(
-              Icons.phone,
-              "Phone Number",
-              "+91 8688476315",
-            ),
+                    const Text(
 
-            detailsTile(
-              Icons.cake,
-              "Age",
-              "21",
-            ),
+                      "sowmith@gmail.com",
 
-            detailsTile(
-              Icons.person_outline,
-              "Gender",
-              "Male",
-            ),
+                      style: TextStyle(
 
-            detailsTile(
-              Icons.account_balance,
-              "Bank",
-              "HDFC Bank",
-            ),
+                        color:
+                        Colors.white70,
 
-            detailsTile(
-              Icons.credit_card,
-              "Account Number",
-              "XXXX XXXX 4587",
-            ),
-
-            detailsTile(
-              Icons.location_on,
-              "Location",
-              "Hyderabad",
-            ),
-
-            const SizedBox(height: 20),
-
-            // SETTINGS
-            Container(
-
-              width: double.infinity,
-
-              padding: const EdgeInsets.all(20),
-
-              decoration: BoxDecoration(
-
-                color: Colors.white,
-
-                borderRadius:
-                BorderRadius.circular(25),
+                        fontSize: 15,
+                      ),
+                    ),
+                  ],
+                ),
               ),
 
-              child: Column(
+              const SizedBox(height: 30),
 
-                children: [
+              profileOption(
 
-                  settingTile(
-                    Icons.security,
-                    "Security",
-                  ),
+                context,
 
-                  settingTile(
-                    Icons.notifications,
-                    "Notifications",
-                  ),
+                Icons.qr_code,
 
-                  settingTile(
-                    Icons.help,
-                    "Help & Support",
-                  ),
+                "My QR Code",
 
-                  settingTile(
-                    Icons.logout,
-                    "Logout",
-                  ),
-                ],
+                onTap: () {
+
+                  showDialog(
+
+                    context: context,
+
+                    builder: (context) {
+
+                      return AlertDialog(
+
+                        shape: RoundedRectangleBorder(
+
+                          borderRadius:
+                          BorderRadius.circular(25),
+                        ),
+
+                        title: const Text(
+
+                          "My Payment QR",
+
+                          style: TextStyle(
+
+                            fontWeight:
+                            FontWeight.bold,
+                          ),
+                        ),
+
+                        content: Column(
+
+                          mainAxisSize:
+                          MainAxisSize.min,
+
+                          children: [
+
+                            Container(
+
+                              padding:
+                              const EdgeInsets.all(20),
+
+                              decoration:
+                              BoxDecoration(
+
+                                color: Colors.white,
+
+                                borderRadius:
+                                BorderRadius.circular(
+                                    20),
+
+                                boxShadow: [
+
+                                  BoxShadow(
+
+                                    color:
+                                    Colors.black.withValues(
+                                        alpha: 0.05),
+
+                                    blurRadius: 10,
+                                  ),
+                                ],
+                              ),
+
+                              child: const Icon(
+
+                                Icons.qr_code_2,
+
+                                size: 180,
+
+                                color:
+                                Color(0xff1565C0),
+                              ),
+                            ),
+
+                            const SizedBox(height: 20),
+
+                            const Text(
+
+                              "UPI ID: sowmith@finpay",
+
+                              style: TextStyle(
+
+                                fontSize: 18,
+
+                                fontWeight:
+                                FontWeight.bold,
+                              ),
+                            ),
+
+                            const SizedBox(height: 10),
+
+                            const Text(
+
+                              "Scan to send money",
+
+                              style: TextStyle(
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        actions: [
+
+                          TextButton(
+
+                            onPressed: () {
+
+                              Navigator.pop(
+                                  context);
+                            },
+
+                            child: const Text(
+                              "Close",
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
               ),
+
+              profileOption(
+                context,
+                Icons.lock,
+                "Privacy & Security",
+              ),
+
+              profileOption(
+                context,
+                Icons.notifications,
+                "Notifications",
+              ),
+
+              profileOption(
+                context,
+                Icons.help,
+                "Help & Support",
+              ),
+
+              profileOption(
+                context,
+                Icons.settings,
+                "Settings",
+              ),
+
+              profileOption(
+                context,
+                Icons.logout,
+                "Logout",
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget profileOption(
+
+      BuildContext context,
+
+      IconData icon,
+
+      String title, {
+
+        VoidCallback? onTap,
+      }) {
+
+    return GestureDetector(
+
+      onTap: onTap,
+
+      child: Container(
+
+        margin:
+        const EdgeInsets.only(
+            bottom: 15),
+
+        padding:
+        const EdgeInsets.all(18),
+
+        decoration:
+        BoxDecoration(
+
+          color: Colors.white,
+
+          borderRadius:
+          BorderRadius.circular(18),
+
+          boxShadow: [
+
+            BoxShadow(
+
+              color:
+              Colors.black.withValues(
+                  alpha: 0.05),
+
+              blurRadius: 10,
             ),
           ],
         ),
-      ),
-    );
-  }
 
-  Widget detailsTile(
-      IconData icon,
-      String title,
-      String value,
-      ) {
+        child: Row(
 
-    return Card(
+          children: [
 
-      margin: const EdgeInsets.only(bottom: 15),
+            CircleAvatar(
 
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(18),
-      ),
+              backgroundColor:
+              const Color(0xffE3F2FD),
 
-      child: ListTile(
+              child: Icon(
 
-        leading: CircleAvatar(
-          backgroundColor:
-          const Color(0xffEFE7FF),
+                icon,
 
-          child: Icon(
-            icon,
-            color: const Color(0xff5F259F),
-          ),
+                color:
+                const Color(
+                    0xff1565C0),
+              ),
+            ),
+
+            const SizedBox(width: 15),
+
+            Expanded(
+
+              child: Text(
+
+                title,
+
+                style: const TextStyle(
+
+                  fontSize: 18,
+
+                  fontWeight:
+                  FontWeight.w500,
+                ),
+              ),
+            ),
+
+            const Icon(
+              Icons.arrow_forward_ios,
+              size: 18,
+            ),
+          ],
         ),
-
-        title: Text(title),
-
-        trailing: Text(
-          value,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget settingTile(
-      IconData icon,
-      String title,
-      ) {
-
-    return ListTile(
-
-      leading: Icon(
-        icon,
-        color: const Color(0xff5F259F),
-      ),
-
-      title: Text(title),
-
-      trailing: const Icon(
-        Icons.arrow_forward_ios,
-        size: 18,
       ),
     );
   }

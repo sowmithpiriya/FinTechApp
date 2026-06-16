@@ -8,81 +8,352 @@ class TransactionsScreen extends StatelessWidget {
 
     return Scaffold(
 
+      backgroundColor:
+      Colors.grey.shade100,
+
       appBar: AppBar(
-        title: const Text("Transactions"),
+
+        backgroundColor:
+        const Color(0xff1565C0),
+
+        elevation: 0,
+
+        title: const Text(
+
+          "Transactions",
+
+          style: TextStyle(
+
+            color: Colors.white,
+
+            fontWeight:
+            FontWeight.bold,
+          ),
+        ),
       ),
 
-      body: ListView(
+      body: SingleChildScrollView(
 
-        children: const [
+        child: Padding(
 
-          ListTile(
-            leading: CircleAvatar(
-              backgroundColor: Colors.green,
-              child: Icon(
-                Icons.arrow_downward,
-                color: Colors.white,
+          padding:
+          const EdgeInsets.all(20),
+
+          child: Column(
+
+            crossAxisAlignment:
+            CrossAxisAlignment.start,
+
+            children: [
+
+              // SUMMARY CARD
+              Container(
+
+                width: double.infinity,
+
+                padding:
+                const EdgeInsets.all(25),
+
+                decoration:
+                BoxDecoration(
+
+                  gradient:
+                  const LinearGradient(
+
+                    colors: [
+
+                      Color(0xff1565C0),
+
+                      Color(0xff42A5F5),
+                    ],
+                  ),
+
+                  borderRadius:
+                  BorderRadius.circular(25),
+                ),
+
+                child: const Column(
+
+                  crossAxisAlignment:
+                  CrossAxisAlignment.start,
+
+                  children: [
+
+                    Text(
+
+                      "This Month",
+
+                      style: TextStyle(
+
+                        color:
+                        Colors.white70,
+
+                        fontSize: 18,
+                      ),
+                    ),
+
+                    SizedBox(height: 15),
+
+                    Text(
+
+                      "₹ 18,450",
+
+                      style: TextStyle(
+
+                        color:
+                        Colors.white,
+
+                        fontSize: 38,
+
+                        fontWeight:
+                        FontWeight.bold,
+                      ),
+                    ),
+
+                    SizedBox(height: 10),
+
+                    Text(
+
+                      "Total Spent",
+
+                      style: TextStyle(
+
+                        color:
+                        Colors.white70,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
 
-            title: Text("Received from Rahul"),
-            subtitle: Text("Today, 10:30 AM"),
+              const SizedBox(height: 30),
 
-            trailing: Text(
-              "+ ₹500",
-              style: TextStyle(
-                color: Colors.green,
-                fontWeight: FontWeight.bold,
+              const Text(
+
+                "Recent Transactions",
+
+                style: TextStyle(
+
+                  fontSize: 22,
+
+                  fontWeight:
+                  FontWeight.bold,
+                ),
               ),
-            ),
+
+              const SizedBox(height: 20),
+
+              transactionTile(
+
+                icon:
+                Icons.shopping_bag,
+
+                title:
+                "Amazon Shopping",
+
+                subtitle:
+                "Today • 2:30 PM",
+
+                amount:
+                "- ₹499",
+
+                amountColor:
+                Colors.red,
+              ),
+
+              transactionTile(
+
+                icon:
+                Icons.account_balance_wallet,
+
+                title:
+                "Salary Credit",
+
+                subtitle:
+                "Today • 9:00 AM",
+
+                amount:
+                "+ ₹50,000",
+
+                amountColor:
+                Colors.green,
+              ),
+
+              transactionTile(
+
+                icon:
+                Icons.lightbulb,
+
+                title:
+                "Electricity Bill",
+
+                subtitle:
+                "Yesterday",
+
+                amount:
+                "- ₹1,200",
+
+                amountColor:
+                Colors.red,
+              ),
+
+              transactionTile(
+
+                icon:
+                Icons.movie,
+
+                title:
+                "Netflix",
+
+                subtitle:
+                "Yesterday",
+
+                amount:
+                "- ₹649",
+
+                amountColor:
+                Colors.red,
+              ),
+
+              transactionTile(
+
+                icon:
+                Icons.fastfood,
+
+                title:
+                "Swiggy Food",
+
+                subtitle:
+                "2 Days Ago",
+
+                amount:
+                "- ₹320",
+
+                amountColor:
+                Colors.red,
+              ),
+
+              transactionTile(
+
+                icon:
+                Icons.phone_android,
+
+                title:
+                "Mobile Recharge",
+
+                subtitle:
+                "3 Days Ago",
+
+                amount:
+                "- ₹299",
+
+                amountColor:
+                Colors.red,
+              ),
+
+              transactionTile(
+
+                icon:
+                Icons.person,
+
+                title:
+                "Money Received",
+
+                subtitle:
+                "4 Days Ago",
+
+                amount:
+                "+ ₹2,000",
+
+                amountColor:
+                Colors.green,
+              ),
+            ],
           ),
+        ),
+      ),
+    );
+  }
 
-          Divider(),
+  Widget transactionTile({
 
-          ListTile(
-            leading: CircleAvatar(
-              backgroundColor: Colors.red,
-              child: Icon(
-                Icons.arrow_upward,
-                color: Colors.white,
-              ),
-            ),
+    required IconData icon,
 
-            title: Text("Paid to Shop"),
-            subtitle: Text("Yesterday, 8:15 PM"),
+    required String title,
 
-            trailing: Text(
-              "- ₹250",
-              style: TextStyle(
-                color: Colors.red,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+    required String subtitle,
+
+    required String amount,
+
+    required Color amountColor,
+  }) {
+
+    return Card(
+
+      margin:
+      const EdgeInsets.only(
+          bottom: 15),
+
+      shape: RoundedRectangleBorder(
+
+        borderRadius:
+        BorderRadius.circular(18),
+      ),
+
+      child: ListTile(
+
+        contentPadding:
+        const EdgeInsets.symmetric(
+
+          horizontal: 18,
+          vertical: 10,
+        ),
+
+        leading: CircleAvatar(
+
+          radius: 28,
+
+          backgroundColor:
+          const Color(0xffE3F2FD),
+
+          child: Icon(
+
+            icon,
+
+            color:
+            const Color(0xff1565C0),
           ),
+        ),
 
-          Divider(),
+        title: Text(
 
-          ListTile(
-            leading: CircleAvatar(
-              backgroundColor: Colors.green,
-              child: Icon(
-                Icons.arrow_downward,
-                color: Colors.white,
-              ),
-            ),
+          title,
 
-            title: Text("Cashback Received"),
-            subtitle: Text("Yesterday, 6:00 PM"),
+          style: const TextStyle(
 
-            trailing: Text(
-              "+ ₹50",
-              style: TextStyle(
-                color: Colors.green,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            fontWeight:
+            FontWeight.bold,
+
+            fontSize: 16,
           ),
-        ],
+        ),
+
+        subtitle: Text(subtitle),
+
+        trailing: Text(
+
+          amount,
+
+          style: TextStyle(
+
+            color: amountColor,
+
+            fontWeight:
+            FontWeight.bold,
+
+            fontSize: 16,
+          ),
+        ),
       ),
     );
   }

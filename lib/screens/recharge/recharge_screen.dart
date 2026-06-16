@@ -6,67 +6,106 @@ class RechargeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final users = [
-
-      "My Number",
-      "Rahul",
-      "Kiran",
-      "Anjali",
-    ];
-
     return Scaffold(
+
+      backgroundColor:
+      Colors.grey.shade100,
 
       appBar: AppBar(
 
         backgroundColor:
-        const Color(0xff5F259F),
+        const Color(0xff1565C0),
 
         title: const Text(
-          "Mobile Recharge",
+
+          "Recharge",
+
           style: TextStyle(
             color: Colors.white,
           ),
         ),
       ),
 
-      body: ListView.builder(
+      body: Padding(
 
-        itemCount: users.length,
+        padding:
+        const EdgeInsets.all(20),
 
-        itemBuilder: (context, index) {
+        child: Column(
 
-          return ListTile(
+          children: [
 
-            leading: const CircleAvatar(
-              child: Icon(Icons.phone),
+            rechargeTile(
+              "My Number",
+              "+91 8688476315",
             ),
 
-            title: Text(users[index]),
-
-            subtitle:
-            const Text("Recharge ₹299"),
-
-            trailing: ElevatedButton(
-
-              onPressed: () {
-
-                ScaffoldMessenger.of(
-                    context)
-                    .showSnackBar(
-
-                  SnackBar(
-                    content: Text(
-                      "Recharge done for ${users[index]}",
-                    ),
-                  ),
-                );
-              },
-
-              child:
-              const Text("Recharge"),
+            rechargeTile(
+              "Rahul",
+              "+91 9999999999",
             ),
-          );
-        },
+
+            rechargeTile(
+              "Anjali",
+              "+91 9876543210",
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget rechargeTile(
+      String name,
+      String number,
+      ) {
+
+    return Card(
+
+      margin:
+      const EdgeInsets.only(
+          bottom: 15),
+
+      child: ListTile(
+
+        leading: const CircleAvatar(
+
+          backgroundColor:
+          Color(0xffE3F2FD),
+
+          child: Icon(
+
+            Icons.phone_android,
+
+            color:
+            Color(0xff1565C0),
+          ),
+        ),
+
+        title: Text(name),
+
+        subtitle: Text(number),
+
+        trailing: ElevatedButton(
+
+          style:
+          ElevatedButton.styleFrom(
+
+            backgroundColor:
+            const Color(0xff1565C0),
+          ),
+
+          onPressed: () {},
+
+          child: const Text(
+
+            "Recharge",
+
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
       ),
     );
   }

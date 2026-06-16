@@ -1,72 +1,126 @@
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
+
 import '../../services/transaction_service.dart';
 
-class QRScreen extends StatefulWidget {
-  const QRScreen({super.key});
+class QrScreen extends StatefulWidget {
+  const QrScreen({super.key});
 
   @override
-  State<QRScreen> createState() =>
-      _QRScreenState();
+  State<QrScreen> createState() =>
+      _QrScreenState();
 }
 
-class _QRScreenState
-    extends State<QRScreen> {
+class _QrScreenState
+    extends State<QrScreen> {
 
-  final TextEditingController amountController =
+  final phoneController =
   TextEditingController();
 
-  String qrData = "";
+  final amountController =
+  TextEditingController();
 
-  void generateQR() {
+  final pinController =
+  TextEditingController();
 
-    if (amountController.text.isNotEmpty) {
+  bool loading = false;
 
-      setState(() {
+  void sendMoney() async {
 
-        qrData =
-        "upi://pay?pa=finpay@upi&pn=FinPay&am=${amountController.text}";
-      });
+    String phone =
+        phoneController.text;
+
+    String amountText =
+        amountController.text;
+
+    String pin =
+        pinController.text;
+
+    if (phone.length != 10) {
+
+      ScaffoldMessenger.of(context)
+          .showSnackBar(
+
+        const SnackBar(
+
+          content: Text(
+            "Enter valid 10 digit number",
+          ),
+        ),
+      );
+
+      return;
     }
-  }
 
-  void simulatePayment() async {
+    if (amountText.isEmpty) {
 
-    await TransactionService.addTransaction(
-      title: "QR Payment",
-      amount: amountController.text,
+      ScaffoldMessenger.of(context)
+          .showSnackBar(
+
+        const SnackBar(
+
+          content: Text(
+            "Enter amount",
+          ),
+        ),
+      );
+
+      return;
+    }
+
+    if (pin != "2020") {
+
+      ScaffoldMessenger.of(context)
+          .showSnackBar(
+
+        const SnackBar(
+
+          content: Text(
+            "Wrong UPI PIN",
+          ),
+        ),
+      );
+
+      return;
+    }
+
+    int amount =
+    int.parse(amountText);
+
+    setState(() {
+      loading = true;
+    });
+
+    await Future.delayed(
+      const Duration(seconds: 2),
     );
 
-    if (!mounted) return;
+    TransactionService.sendMoney(
+      amount,
+    );
 
-    showDialog(
+    setState(() {
+      loading = false;
+    });
 
-      context: context,
+    ScaffoldMessenger.of(context)
+        .showSnackBar(
 
-      builder: (_) => AlertDialog(
+      SnackBar(
 
-        title: const Text(
-          "Payment Successful",
-        ),
+        backgroundColor:
+        Colors.green,
 
         content: Text(
-          "₹${amountController.text} payment completed.",
+          "₹$amount sent to $phone successfully",
         ),
-
-        actions: [
-
-          TextButton(
-
-            onPressed: () {
-
-              Navigator.pop(context);
-            },
-
-            child: const Text("OK"),
-          ),
-        ],
       ),
     );
+
+    phoneController.clear();
+    amountController.clear();
+    pinController.clear();
+
+    setState(() {});
   }
 
   @override
@@ -74,164 +128,506 @@ class _QRScreenState
 
     return Scaffold(
 
+      backgroundColor:
+      const Color(0xffF5F5F5),
+
       appBar: AppBar(
+
         backgroundColor:
-        const Color(0xff5F259F),
+        const Color(0xff1565C0),
+
+        elevation: 0,
 
         title: const Text(
-          "Generate QR",
+
+          "Transfer Money",
+
           style: TextStyle(
             color: Colors.white,
+            fontWeight:
+            FontWeight.bold,
           ),
         ),
       ),
 
       body: SingleChildScrollView(
 
-        padding: const EdgeInsets.all(20),
+        child: Padding(
 
-        child: Column(
+          padding:
+          const EdgeInsets.all(20),
 
-          children: [
+          child: Column(
 
-            const SizedBox(height: 20),
+            crossAxisAlignment:
+            CrossAxisAlignment.start,
 
-            TextField(
-
-              controller: amountController,
-              keyboardType: TextInputType.number,
-
-              decoration: InputDecoration(
-
-                hintText: "Enter Amount",
-
-                prefixIcon:
-                const Icon(Icons.currency_rupee),
-
-                filled: true,
-                fillColor: Colors.grey.shade100,
-
-                border: OutlineInputBorder(
-                  borderRadius:
-                  BorderRadius.circular(15),
-
-                  borderSide: BorderSide.none,
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 25),
-
-            SizedBox(
-
-              width: double.infinity,
-              height: 55,
-
-              child: ElevatedButton(
-
-                style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                  const Color(0xff5F259F),
-
-                  shape:
-                  RoundedRectangleBorder(
-                    borderRadius:
-                    BorderRadius.circular(15),
-                  ),
-                ),
-
-                onPressed: generateQR,
-
-                child: const Text(
-                  "Generate QR",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 40),
-
-            if (qrData.isNotEmpty)
+            children: [
 
               Container(
 
-                padding: const EdgeInsets.all(20),
+                width: double.infinity,
 
-                decoration: BoxDecoration(
+                padding:
+                const EdgeInsets.all(25),
 
-                  color: Colors.white,
+                decoration:
+                BoxDecoration(
+
+                  gradient:
+                  const LinearGradient(
+
+                    colors: [
+
+                      Color(0xff1565C0),
+
+                      Color(0xff42A5F5),
+                    ],
+                  ),
 
                   borderRadius:
                   BorderRadius.circular(25),
-
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade300,
-                      blurRadius: 10,
-                    ),
-                  ],
                 ),
 
-                child: Column(
+                child: const Column(
+
+                  crossAxisAlignment:
+                  CrossAxisAlignment.start,
 
                   children: [
 
-                    QrImageView(
-                      data: qrData,
-                      size: 250,
+                    Text(
+
+                      "Quick Transfer",
+
+                      style: TextStyle(
+
+                        color:
+                        Colors.white70,
+
+                        fontSize: 16,
+                      ),
                     ),
 
-                    const SizedBox(height: 20),
+                    SizedBox(height: 15),
 
                     Text(
-                      "Pay ₹${amountController.text}",
-                      style: const TextStyle(
-                        fontSize: 22,
+
+                      "Send Money\nInstantly",
+
+                      style: TextStyle(
+
+                        color:
+                        Colors.white,
+
+                        fontSize: 38,
+
                         fontWeight:
                         FontWeight.bold,
                       ),
                     ),
-
-                    const SizedBox(height: 30),
-
-                    SizedBox(
-
-                      width: double.infinity,
-                      height: 55,
-
-                      child: ElevatedButton(
-
-                        style:
-                        ElevatedButton.styleFrom(
-                          backgroundColor:
-                          Colors.green,
-
-                          shape:
-                          RoundedRectangleBorder(
-                            borderRadius:
-                            BorderRadius.circular(15),
-                          ),
-                        ),
-
-                        onPressed: simulatePayment,
-
-                        child: const Text(
-                          "Simulate Payment",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),
-          ],
+
+              const SizedBox(height: 30),
+
+              const Text(
+
+                "Mobile Number",
+
+                style: TextStyle(
+
+                  fontSize: 18,
+
+                  fontWeight:
+                  FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 10),
+
+              TextField(
+
+                controller:
+                phoneController,
+
+                keyboardType:
+                TextInputType.phone,
+
+                maxLength: 10,
+
+                decoration:
+                InputDecoration(
+
+                  hintText:
+                  "Enter 10 digit number",
+
+                  prefixIcon:
+                  const Icon(
+                    Icons.phone,
+                  ),
+
+                  filled: true,
+
+                  fillColor:
+                  Colors.white,
+
+                  border:
+                  OutlineInputBorder(
+
+                    borderRadius:
+                    BorderRadius.circular(
+                        16),
+
+                    borderSide:
+                    BorderSide.none,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              const Text(
+
+                "Amount",
+
+                style: TextStyle(
+
+                  fontSize: 18,
+
+                  fontWeight:
+                  FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 10),
+
+              TextField(
+
+                controller:
+                amountController,
+
+                keyboardType:
+                TextInputType.number,
+
+                decoration:
+                InputDecoration(
+
+                  hintText:
+                  "Enter amount",
+
+                  prefixIcon:
+                  const Icon(
+                    Icons.currency_rupee,
+                  ),
+
+                  filled: true,
+
+                  fillColor:
+                  Colors.white,
+
+                  border:
+                  OutlineInputBorder(
+
+                    borderRadius:
+                    BorderRadius.circular(
+                        16),
+
+                    borderSide:
+                    BorderSide.none,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              const Text(
+
+                "UPI PIN",
+
+                style: TextStyle(
+
+                  fontSize: 18,
+
+                  fontWeight:
+                  FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 10),
+
+              TextField(
+
+                controller:
+                pinController,
+
+                keyboardType:
+                TextInputType.number,
+
+                obscureText: true,
+
+                maxLength: 4,
+
+                decoration:
+                InputDecoration(
+
+                  hintText:
+                  "Enter UPI PIN",
+
+                  prefixIcon:
+                  const Icon(
+                    Icons.lock,
+                  ),
+
+                  filled: true,
+
+                  fillColor:
+                  Colors.white,
+
+                  border:
+                  OutlineInputBorder(
+
+                    borderRadius:
+                    BorderRadius.circular(
+                        16),
+
+                    borderSide:
+                    BorderSide.none,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 30),
+
+              SizedBox(
+
+                width: double.infinity,
+
+                height: 60,
+
+                child: ElevatedButton(
+
+                  style:
+                  ElevatedButton
+                      .styleFrom(
+
+                    backgroundColor:
+                    const Color(
+                        0xff1565C0),
+
+                    shape:
+                    RoundedRectangleBorder(
+
+                      borderRadius:
+                      BorderRadius.circular(
+                          18),
+                    ),
+                  ),
+
+                  onPressed:
+                  loading
+                      ? null
+                      : sendMoney,
+
+                  child: loading
+
+                      ? const CircularProgressIndicator(
+                    color:
+                    Colors.white,
+                  )
+
+                      : const Text(
+
+                    "Send Money",
+
+                    style: TextStyle(
+
+                      color:
+                      Colors.white,
+
+                      fontSize: 20,
+
+                      fontWeight:
+                      FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 35),
+
+              const Text(
+
+                "Recent Contacts",
+
+                style: TextStyle(
+
+                  fontSize: 22,
+
+                  fontWeight:
+                  FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              contactCard(
+                context,
+                "Rahul Sharma",
+                "+91 9876543210",
+              ),
+
+              contactCard(
+                context,
+                "Anjali Verma",
+                "+91 9123456780",
+              ),
+
+              contactCard(
+                context,
+                "Suresh Kumar",
+                "+91 9988776655",
+              ),
+
+              contactCard(
+                context,
+                "Priya Reddy",
+                "+91 9090909090",
+              ),
+            ],
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget contactCard(
+      BuildContext context,
+      String name,
+      String phone,
+      ) {
+
+    return Container(
+
+      margin:
+      const EdgeInsets.only(
+          bottom: 15),
+
+      padding:
+      const EdgeInsets.all(15),
+
+      decoration:
+      BoxDecoration(
+
+        color: Colors.white,
+
+        borderRadius:
+        BorderRadius.circular(18),
+
+        boxShadow: [
+
+          BoxShadow(
+
+            color:
+            Colors.black.withValues(
+                alpha: 0.05),
+
+            blurRadius: 10,
+          ),
+        ],
+      ),
+
+      child: Row(
+
+        children: [
+
+          CircleAvatar(
+
+            radius: 26,
+
+            backgroundColor:
+            const Color(0xffE3F2FD),
+
+            child: const Icon(
+
+              Icons.person,
+
+              color:
+              Color(0xff1565C0),
+            ),
+          ),
+
+          const SizedBox(width: 15),
+
+          Expanded(
+
+            child: Column(
+
+              crossAxisAlignment:
+              CrossAxisAlignment.start,
+
+              children: [
+
+                Text(
+
+                  name,
+
+                  style:
+                  const TextStyle(
+
+                    fontSize: 18,
+
+                    fontWeight:
+                    FontWeight.bold,
+                  ),
+                ),
+
+                const SizedBox(
+                    height: 5),
+
+                Text(
+
+                  phone,
+
+                  style:
+                  const TextStyle(
+
+                    color:
+                    Colors.grey,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          ElevatedButton(
+
+            style:
+            ElevatedButton.styleFrom(
+
+              backgroundColor:
+              const Color(0xff1565C0),
+            ),
+
+            onPressed: () {
+
+              phoneController.text =
+                  phone.replaceAll(
+                      "+91 ", "");
+            },
+
+            child: const Text(
+
+              "Pay",
+
+              style: TextStyle(
+                color:
+                Colors.white,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

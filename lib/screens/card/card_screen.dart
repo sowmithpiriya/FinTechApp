@@ -9,12 +9,12 @@ class CardScreen extends StatelessWidget {
     return Scaffold(
 
       backgroundColor:
-      const Color(0xffF5F5F5),
+      const Color(0xff1565C0),
 
       appBar: AppBar(
 
         backgroundColor:
-        const Color(0xff5F259F),
+        const Color(0xff1565C0),
 
         title: const Text(
 
@@ -51,10 +51,8 @@ class CardScreen extends StatelessWidget {
                 const LinearGradient(
 
                   colors: [
-
-                    Color(0xff5F259F),
-
-                    Color(0xff7E57C2),
+                    Color(0xff1565C0),
+                    Color(0xff42A5F5),
                   ],
                 ),
 
